@@ -7,24 +7,24 @@ const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
 const clearCartBtn = document.getElementById('clear-cart');
 
-// CAPTURA DE COMPONENTES DEL FILTRO LATERAL
+
 const priceMinInput = document.getElementById('priceMin');
 const priceMaxInput = document.getElementById('priceMax');
 const searchInput = document.getElementById('searchProduct');
 const itemsFoundLabel = document.getElementById('items-found-count');
 const productCards = document.querySelectorAll('.product-item-card');
 
-// --- CÁCULO MÓDULO FILTRADO CRUZADO ---
+
 function filtrarProductos() {
     const minPrice = parseFloat(priceMinInput.value) || 0;
     const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
     const searchText = searchInput.value.toLowerCase().trim();
     
-    // Captura de la Categoría Activa (Radio seleccionado)
+   
     const activeRadio = document.querySelector('input[name="catRadio"]:checked');
     const selectedCategory = activeRadio ? activeRadio.value : 'all';
 
-    // Captura de los Efectos Permitidos (Checkboxes marcados)
+    
     const activeEffects = [];
     if(document.getElementById('typeCromado')?.checked) activeEffects.push('cromado');
     if(document.getElementById('typeDorado')?.checked) activeEffects.push('dorado');
@@ -38,13 +38,13 @@ function filtrarProductos() {
         const pCategory = card.getAttribute('data-category');
         const pEffect = card.getAttribute('data-effect');
 
-        // Evaluación de Coincidencias Matemáticas y de Criterios
+      
         const cumplePrecio = pPrice >= minPrice && pPrice <= maxPrice;
         const cumpleNombre = pName.includes(searchText);
         const cumpleCategoria = (selectedCategory === 'all' || pCategory === selectedCategory);
         const cumpleEfecto = activeEffects.includes(pEffect);
 
-        // Renderizado Dinámico
+       
         if (cumplePrecio && cumpleNombre && cumpleCategoria && cumpleEfecto) {
             card.style.display = 'block';
             contadorVisibles++;
@@ -53,13 +53,13 @@ function filtrarProductos() {
         }
     });
 
-    // Actualizador numérico de cantidad de productos mostrados
+   
     if(itemsFoundLabel) {
         itemsFoundLabel.textContent = `Mostrando ${contadorVisibles} productos`;
     }
 }
 
-// Vinculación de Eventos en tiempo real para el Panel
+
 if(priceMinInput) priceMinInput.addEventListener('input', filtrarProductos);
 if(priceMaxInput) priceMaxInput.addEventListener('input', filtrarProductos);
 if(searchInput) searchInput.addEventListener('input', filtrarProductos);
@@ -74,7 +74,7 @@ document.querySelectorAll('input[name="catRadio"]').forEach(radio => {
 });
 
 
-// --- MÓDULO DE PERSISTENCIA DEL CARRITO ---
+
 function actualizarInterfazCarrito() {
     const totalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
     if(cartCount) cartCount.textContent = totalProductos;
@@ -106,7 +106,7 @@ function actualizarInterfazCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-// Captura global de eventos de interacción con productos
+
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-cart')) {
         const name = e.target.getAttribute('data-name');
@@ -144,9 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filtrarProductos(); 
 });
 
-// ==========================================
-// 1. SISTEMA DE FILTROS EN TIEMPO REAL
-// ==========================================
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Elementos de los filtros
@@ -156,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("contenedor-productos");
     const itemsFoundCount = document.getElementById("items-found-count");
 
-    // Radios de Categoría y Checkboxes de Efectos
     const categoryRadios = document.getElementsByName("catRadio");
     const effectCheckboxes = [
         document.getElementById("typeCromado"),
@@ -164,22 +161,20 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("typeTornasol")
     ];
 
-    // Colección de todas las tarjetas de producto
     const products = Array.from(document.querySelectorAll(".product-item-card"));
 
-    // Función principal para filtrar los elementos
     function filtrarProductos() {
         const minPrice = parseFloat(priceMinInput.value) || 0;
         const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
         const searchText = searchInput.value.toLowerCase().trim();
 
-        // Obtener la categoría seleccionada
+  
         let selectedCategory = "all";
         categoryRadios.forEach(radio => {
             if (radio.checked) selectedCategory = radio.value;
         });
 
-        // Obtener los efectos activos
+       
         const activeEffects = [];
         effectCheckboxes.forEach(cb => {
             if (cb && cb.checked) activeEffects.push(cb.value);
@@ -188,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let contadorVisibles = 0;
 
         products.forEach(product => {
-            // Extraer atributos data de la tarjeta
+            
             const price = parseFloat(product.getAttribute("data-price"));
             const name = product.getAttribute("data-name").toLowerCase();
             const category = product.getAttribute("data-category");
@@ -200,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const matchesCategory = (selectedCategory === "all" || category === selectedCategory);
             const matchesEffect = activeEffects.includes(effect);
 
-            // Si cumple con todos los filtros, se muestra; si no, se oculta
             if (matchesPrice && matchesSearch && matchesCategory && matchesEffect) {
                 product.style.display = ""; // Muestra el elemento usando sus propiedades CSS originales
                 contadorVisibles++;
@@ -209,13 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Actualizar el contador visual de productos encontrados
+      
         if (itemsFoundCount) {
             itemsFoundCount.textContent = `Mostrando ${contadorVisibles} producto${contadorVisibles !== 1 ? 's' : ''}`;
         }
     }
 
-    // Escuchar eventos en los inputs para ejecutar el filtro al instante
     if (priceMinInput) priceMinInput.addEventListener("input", filtrarProductos);
     if (priceMaxInput) priceMaxInput.addEventListener("input", filtrarProductos);
     if (searchInput) searchInput.addEventListener("input", filtrarProductos);
@@ -229,9 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ==========================================
-    // 2. SISTEMA INTERNO DEL CARRITO DE COMPRAS
-    // ==========================================
+
     
     let cart = [];
     const cartCountBadge = document.getElementById("cart-count");
@@ -239,20 +230,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartTotalSpan = document.getElementById("cart-total");
     const clearCartButton = document.getElementById("clear-cart");
 
-    // Función para actualizar la interfaz del carrito modal
+  
     function actualizarInterfazCarrito() {
-        // Actualizar contador del Navbar
+       
         const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
         if (cartCountBadge) cartCountBadge.textContent = totalItems;
 
-        // Limpiar lista visual del modal
+    
         if (cartItemsList) {
             cartItemsList.innerHTML = "";
 
             if (cart.length === 0) {
                 cartItemsList.innerHTML = `<li class="list-group-item text-center text-muted py-3">El carrito está vacío.</li>`;
             } else {
-                // Renderizar los elementos agregados
+               
                 cart.forEach((item, index) => {
                     const li = document.createElement("li");
                     li.className = "list-group-item d-flex justify-content-between align-items-center bg-dark text-white border-secondary";
@@ -268,12 +259,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Calcular y renderizar el precio total final
+      
         const totalMoney = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         if (cartTotalSpan) cartTotalSpan.textContent = totalMoney.toLocaleString("es-MX");
     }
 
-    // Escuchar clics en los botones "Agregar al carrito"
+  
     if (container) {
         container.addEventListener("click", (e) => {
             if (e.target.classList.contains("add-cart")) {
@@ -281,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const productName = button.getAttribute("data-name");
                 const productPrice = parseFloat(button.getAttribute("data-price"));
 
-                // Verificar si el producto ya existe en el arreglo del carrito
+                
                 const existente = cart.find(item => item.name === productName);
 
                 if (existente) {
@@ -296,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 actualizarInterfazCarrito();
                 
-                // Efecto visual rápido en el botón al presionar
+            
                 button.textContent = "¡Agregado! ✓";
                 button.classList.replace("btn-dark", "btn-success");
                 setTimeout(() => {
@@ -315,6 +306,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Ejecución inicial por si acaso
+    
     filtrarProductos();
 });
