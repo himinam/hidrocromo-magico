@@ -300,7 +300,7 @@ section p{
     border-radius:10px!important;
 }
 
-/* SCROLLBAR */
+
 ::-webkit-scrollbar{
     width:8px;
 }
@@ -314,7 +314,7 @@ section p{
     border-radius:10px;
 }
 
-/* RESPONSIVE */
+
 @media(max-width:768px){
     .hero-content h1{ font-size:3rem; }
     .hero-content p{ font-size:1rem; }
@@ -365,7 +365,6 @@ section p{
     transform:scale(1.05);
 }
 
-/* REDES SOCIALES (INSTAGRAM) */
 .nav-instagram {
     color: #ff007f !important;
     transition: 0.3s ease-in-out;

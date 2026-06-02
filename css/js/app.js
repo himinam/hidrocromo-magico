@@ -1,311 +1,137 @@
-// VARIABLES LOCALES DEL CARRITO
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+// 1. Crear el arreglo donde se guardarán los productos del carrito
+let carrito = [];
 
-// ELEMENTOS REFERENCIALES DEL DOM
-const cartCount = document.getElementById('cart-count');
-const cartItems = document.getElementById('cart-items');
-const cartTotal = document.getElementById('cart-total');
-const clearCartBtn = document.getElementById('clear-cart');
-
-
-const priceMinInput = document.getElementById('priceMin');
-const priceMaxInput = document.getElementById('priceMax');
-const searchInput = document.getElementById('searchProduct');
-const itemsFoundLabel = document.getElementById('items-found-count');
-const productCards = document.querySelectorAll('.product-item-card');
-
-
-function filtrarProductos() {
-    const minPrice = parseFloat(priceMinInput.value) || 0;
-    const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
-    const searchText = searchInput.value.toLowerCase().trim();
-    
-   
-    const activeRadio = document.querySelector('input[name="catRadio"]:checked');
-    const selectedCategory = activeRadio ? activeRadio.value : 'all';
-
-    
-    const activeEffects = [];
-    if(document.getElementById('typeCromado')?.checked) activeEffects.push('cromado');
-    if(document.getElementById('typeDorado')?.checked) activeEffects.push('dorado');
-    if(document.getElementById('typeTornasol')?.checked) activeEffects.push('tornasol');
-
-    let contadorVisibles = 0;
-
-    productCards.forEach(card => {
-        const pPrice = parseFloat(card.getAttribute('data-price'));
-        const pName = card.getAttribute('data-name') || "";
-        const pCategory = card.getAttribute('data-category');
-        const pEffect = card.getAttribute('data-effect');
-
-      
-        const cumplePrecio = pPrice >= minPrice && pPrice <= maxPrice;
-        const cumpleNombre = pName.includes(searchText);
-        const cumpleCategoria = (selectedCategory === 'all' || pCategory === selectedCategory);
-        const cumpleEfecto = activeEffects.includes(pEffect);
-
-       
-        if (cumplePrecio && cumpleNombre && cumpleCategoria && cumpleEfecto) {
-            card.style.display = 'block';
-            contadorVisibles++;
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-   
-    if(itemsFoundLabel) {
-        itemsFoundLabel.textContent = `Mostrando ${contadorVisibles} productos`;
-    }
-}
-
-
-if(priceMinInput) priceMinInput.addEventListener('input', filtrarProductos);
-if(priceMaxInput) priceMaxInput.addEventListener('input', filtrarProductos);
-if(searchInput) searchInput.addEventListener('input', filtrarProductos);
-
-document.querySelectorAll('input[name="catRadio"]').forEach(radio => {
-    radio.addEventListener('change', filtrarProductos);
-});
-
-['typeCromado', 'typeDorado', 'typeTornasol'].forEach(id => {
-    const element = document.getElementById(id);
-    if(element) element.addEventListener('change', filtrarProductos);
-});
-
-
-
-function actualizarInterfazCarrito() {
-    const totalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    if(cartCount) cartCount.textContent = totalProductos;
-
-    if(cartItems) cartItems.innerHTML = '';
-    let sumaTotal = 0;
-
-    carrito.forEach((item, index) => {
-        sumaTotal += item.price * item.cantidad;
-
-        const li = document.createElement('li');
-        li.className = 'list-group-item d-flex justify-content-between align-items-center bg-dark text-white mb-2 p-3';
-        li.innerHTML = `
-            <div>
-                <h6 class="my-0 fw-bold">${item.name}</h6>
-                <small class="text-secondary">$${item.price} USD x ${item.cantidad}</small>
-            </div>
-            <div>
-                <span class="badge bg-primary rounded-pill p-2 me-2">$${item.price * item.cantidad}</span>
-                <button class="btn btn-sm btn-danger rounded-circle btn-eliminar" data-index="${index}">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </div>
-        `;
-        if(cartItems) cartItems.appendChild(li);
-    });
-
-    if(cartTotal) cartTotal.textContent = sumaTotal;
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-}
-
-
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('add-cart')) {
-        const name = e.target.getAttribute('data-name');
-        const price = parseFloat(e.target.getAttribute('data-price'));
-
-        const itemExistente = carrito.find(item => item.name === name);
-
-        if (itemExistente) {
-            itemExistente.cantidad++;
-        } else {
-            carrito.push({ name, price, cantidad: 1 });
-        }
-
-        actualizarInterfazCarrito();
-    }
-
-    if (e.target.closest('.btn-eliminar')) {
-        const button = e.target.closest('.btn-eliminar');
-        const index = button.getAttribute('data-index');
-        carrito.splice(index, 1);
-        actualizarInterfazCarrito();
-    }
-});
-
-if (clearCartBtn) {
-    clearCartBtn.addEventListener('click', () => {
-        carrito = [];
-        actualizarInterfazCarrito();
-    });
-}
-
-// Inicialización Automática
+// 2. Esperar a que el HTML esté completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
-    actualizarInterfazCarrito();
-    filtrarProductos(); 
+    inicializarCarrito();
 });
 
+function inicializarCarrito() {
+    const contenedorProductos = document.getElementById('contenedor-productos');
 
+    if (contenedorProductos) {
+        contenedorProductos.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-cart')) {
+                e.preventDefault(); 
+                
+                const boton = e.target;
+                
+                // Extraemos la información del HTML
+                const infoProducto = {
+                    id: boton.closest('.product-item-card') ? boton.closest('.product-item-card').getAttribute('data-name').replace(/\s+/g, '-') : 'producto', 
+                    nombre: boton.getAttribute('data-name') || 'Escultura',
+                    // 🔥 MODIFICACIÓN DE RAÍZ: Ignoramos el HTML y forzamos el precio en 0 temporalmente
+                    precio: 0.00, 
+                    cantidad: 1
+                };
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Elementos de los filtros
-    const priceMinInput = document.getElementById("priceMin");
-    const priceMaxInput = document.getElementById("priceMax");
-    const searchInput = document.getElementById("searchProduct");
-    const container = document.getElementById("contenedor-productos");
-    const itemsFoundCount = document.getElementById("items-found-count");
-
-    const categoryRadios = document.getElementsByName("catRadio");
-    const effectCheckboxes = [
-        document.getElementById("typeCromado"),
-        document.getElementById("typeDorado"),
-        document.getElementById("typeTornasol")
-    ];
-
-    const products = Array.from(document.querySelectorAll(".product-item-card"));
-
-    function filtrarProductos() {
-        const minPrice = parseFloat(priceMinInput.value) || 0;
-        const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
-        const searchText = searchInput.value.toLowerCase().trim();
-
-  
-        let selectedCategory = "all";
-        categoryRadios.forEach(radio => {
-            if (radio.checked) selectedCategory = radio.value;
-        });
-
-       
-        const activeEffects = [];
-        effectCheckboxes.forEach(cb => {
-            if (cb && cb.checked) activeEffects.push(cb.value);
-        });
-
-        let contadorVisibles = 0;
-
-        products.forEach(product => {
-            
-            const price = parseFloat(product.getAttribute("data-price"));
-            const name = product.getAttribute("data-name").toLowerCase();
-            const category = product.getAttribute("data-category");
-            const effect = product.getAttribute("data-effect");
-
-            // Validaciones
-            const matchesPrice = price >= minPrice && price <= maxPrice;
-            const matchesSearch = name.includes(searchText);
-            const matchesCategory = (selectedCategory === "all" || category === selectedCategory);
-            const matchesEffect = activeEffects.includes(effect);
-
-            if (matchesPrice && matchesSearch && matchesCategory && matchesEffect) {
-                product.style.display = ""; // Muestra el elemento usando sus propiedades CSS originales
-                contadorVisibles++;
-            } else {
-                product.style.display = "none"; // Oculta la columna
+                // Añadir al carrito
+                agregarAlCarrito(infoProducto);
             }
         });
+    }
+}
 
-      
-        if (itemsFoundCount) {
-            itemsFoundCount.textContent = `Mostrando ${contadorVisibles} producto${contadorVisibles !== 1 ? 's' : ''}`;
-        }
+// 3. Función para procesar el producto
+function agregarAlCarrito(productoNuevo) {
+    // Verificar si el producto ya existe en el carrito
+    const existe = carrito.some(producto => producto.nombre === productoNuevo.nombre);
+    
+    if (existe) {
+        carrito = carrito.map(producto => {
+            if (producto.nombre === productoNuevo.nombre) {
+                producto.cantidad++;
+                return producto; 
+            } else {
+                return producto; 
+            }
+        });
+    } else {
+        carrito.push(productoNuevo);
     }
 
-    if (priceMinInput) priceMinInput.addEventListener("input", filtrarProductos);
-    if (priceMaxInput) priceMaxInput.addEventListener("input", filtrarProductos);
-    if (searchInput) searchInput.addEventListener("input", filtrarProductos);
+    console.log('Contenido del carrito actual:', carrito); 
+    
+    // Lanzar la alerta visual de Bootstrap
+    mostrarNotificacion(productoNuevo.nombre);
+    
+    // Actualizar la interfaz en pantalla (artículos y precios)
+    actualizarInterfaz();
+}
 
-    categoryRadios.forEach(radio => {
-        radio.addEventListener("change", filtrarProductos);
+// 4. Función para actualizar los números y la pasarela en la misma pantalla
+function actualizarInterfaz() {
+    let totalPrecio = 0;
+    let totalProductos = 0;
+    const contenedorMiniLista = document.getElementById('lista-checkout-mini');
+
+    // Limpiar el contenedor del panel lateral si existe para renderizar al momento
+    if (contenedorMiniLista) contenedorMiniLista.innerHTML = '';
+
+    // Calcular totales recorriendo el carrito y llenar el desglose de la pasarela
+    carrito.forEach(producto => {
+        totalPrecio += producto.precio * producto.cantidad;
+        totalProductos += producto.cantidad;
+
+        if (contenedorMiniLista) {
+            const itemHTML = `
+                <div class="d-flex justify-content-between align-items-center bg-black bg-opacity-25 p-2 rounded-3 mb-2 border border-secondary border-opacity-25">
+                    <div class="small">
+                        <span class="fw-bold text-light">${producto.nombre}</span>
+                        <br><span class="text-secondary" style="font-size:0.8rem;">Cant: ${producto.cantidad}</span>
+                    </div>
+                    <span class="small fw-semibold text-warning">$${(producto.precio * producto.cantidad).toFixed(2)}</span>
+                </div>`;
+            contenedorMiniLista.insertAdjacentHTML('beforeend', itemHTML);
+        }
     });
 
-    effectCheckboxes.forEach(cb => {
-        if (cb) cb.addEventListener("change", filtrarProductos);
-    });
+    // Mensaje por si vacían el carrito
+    if (totalProductos === 0 && contenedorMiniLista) {
+        contenedorMiniLista.innerHTML = `<div class="text-center text-secondary py-3 small">Tu bolsa está vacía.</div>`;
+    }
 
-
-
+    // 1. Actualizar el contador amarillo en la Navbar superior (Bolsa)
+    const contadorContador = document.getElementById('cart-count');
+    if (contadorContador) {
+        contadorContador.textContent = totalProductos;
+    }
     
-    let cart = [];
-    const cartCountBadge = document.getElementById("cart-count");
-    const cartItemsList = document.getElementById("cart-items");
-    const cartTotalSpan = document.getElementById("cart-total");
-    const clearCartButton = document.getElementById("clear-cart");
+    // 2. Actualizar el total de la Pasarela de Pago Lateral
+    const totalPasarela = document.getElementById('checkout-total-express');
+    if (totalPasarela) {
+        totalPasarela.textContent = `$${totalPrecio.toFixed(2)} USD`;
+    }
 
-  
-    function actualizarInterfazCarrito() {
-       
-        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-        if (cartCountBadge) cartCountBadge.textContent = totalItems;
+    // 3. Controlar el comportamiento del Botón Flotante de abajo
+    const barraFlotante = document.getElementById('btn-flotante-compra');
+    const totalFlotante = document.getElementById('total-flotante');
 
-    
-        if (cartItemsList) {
-            cartItemsList.innerHTML = "";
-
-            if (cart.length === 0) {
-                cartItemsList.innerHTML = `<li class="list-group-item text-center text-muted py-3">El carrito está vacío.</li>`;
-            } else {
-               
-                cart.forEach((item, index) => {
-                    const li = document.createElement("li");
-                    li.className = "list-group-item d-flex justify-content-between align-items-center bg-dark text-white border-secondary";
-                    li.innerHTML = `
-                        <div>
-                            <h6 class="my-0 fw-bold">${item.name}</h6>
-                            <small class="text-secondary">$${item.price} c/u x ${item.quantity}</small>
-                        </div>
-                        <span class="badge bg-warning text-dark fs-6 fw-bold">$${item.price * item.quantity}</span>
-                    `;
-                    cartItemsList.appendChild(li);
-                });
-            }
+    if (barraFlotante && totalFlotante) {
+        totalFlotante.textContent = `$${totalPrecio.toFixed(2)} USD`;
+        
+        if (totalProductos > 0) {
+            barraFlotante.classList.remove('d-none');
+        } else {
+            barraFlotante.classList.add('d-none');
         }
-
-      
-        const totalMoney = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-        if (cartTotalSpan) cartTotalSpan.textContent = totalMoney.toLocaleString("es-MX");
     }
+}
 
-  
-    if (container) {
-        container.addEventListener("click", (e) => {
-            if (e.target.classList.contains("add-cart")) {
-                const button = e.target;
-                const productName = button.getAttribute("data-name");
-                const productPrice = parseFloat(button.getAttribute("data-price"));
+// Alerta flotante de Bootstrap
+function mostrarNotificacion(nombreProducto) {
+    const alerta = document.createElement('div');
+    alerta.className = 'position-fixed bottom-0 end-0 m-4 alert alert-success border-0 shadow-lg text-white d-flex align-items-center gap-2';
+    alerta.style.zIndex = '9999';
+    alerta.style.background = 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)';
+    alerta.innerHTML = `
+        <i class="bi bi-check-circle-fill"></i>
+        <span><strong>${nombreProducto}</strong> añadido al carrito.</span>
+    `;
 
-                
-                const existente = cart.find(item => item.name === productName);
+    document.body.appendChild(alerta);
 
-                if (existente) {
-                    existente.quantity += 1;
-                } else {
-                    cart.push({
-                        name: productName,
-                        price: productPrice,
-                        quantity: 1
-                    });
-                }
-
-                actualizarInterfazCarrito();
-                
-            
-                button.textContent = "¡Agregado! ✓";
-                button.classList.replace("btn-dark", "btn-success");
-                setTimeout(() => {
-                    button.textContent = "Agregar al carrito";
-                    button.classList.replace("btn-success", "btn-dark");
-                }, 1000);
-            }
-        });
-    }
-
-    // Vaciar Carrito
-    if (clearCartButton) {
-        clearCartButton.addEventListener("click", () => {
-            cart = [];
-            actualizarInterfazCarrito();
-        });
-    }
-
-    
-    filtrarProductos();
-});
+    setTimeout(() => {
+        alerta.remove();
+    }, 2500);
+}
