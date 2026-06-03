@@ -3,7 +3,8 @@ import { carrito, vaciarCarrito, actualizarInterfaz } from './app.js';
 
 const PP_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID;
 const PP_SECRET    = import.meta.env.VITE_PAYPAL_SECRET;
-const PP_BASE      = import.meta.env.VITE_PAYPAL_ENDPOINT || 'https://sandbox.paypal.com';
+const PP_API_BASE   = import.meta.env.VITE_PAYPAL_ENDPOINT || 'https://sandbox.paypal.com';
+const PP_BASE = import.meta.env.VITE_PAYPAL_API_ENDPOINT || 'https://api-m.sandbox.paypal.com';
 
 let _token       = null;
 let _tokenExpiry = 0;
@@ -13,7 +14,7 @@ function cargarPaypalSDK() {
     return new Promise((resolve, reject) => {
         if (window.paypal) { resolve(); return; }
         const s  = document.createElement('script');
-        s.src    = `https://www.paypal.com/sdk/js?client-id=${PP_CLIENT_ID}&currency=USD&intent=capture`;
+        s.src    = `${PP_API_BASE}/sdk/js?client-id=${PP_CLIENT_ID}&currency=USD&intent=capture`;
         s.onload  = resolve;
         s.onerror = () => reject(new Error('No se pudo cargar el SDK de PayPal'));
         document.head.appendChild(s);
@@ -168,7 +169,7 @@ async function ppGenerarQR() {
 
     try {
         const orderId     = await ppCreateOrder();
-        const approvalUrl = `https://www.sandbox.paypal.com/checkoutnow?token=${orderId}`;
+        const approvalUrl = `${PP_API_BASE}/checkoutnow?token=${orderId}`;
 
         wrap.innerHTML = '<div id="pp-qr-canvas" class="d-flex justify-content-center"></div>';
 
