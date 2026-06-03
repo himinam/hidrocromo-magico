@@ -3,9 +3,11 @@ import { carrito, vaciarCarrito, actualizarInterfaz } from './app.js';
 
 const PP_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID;
 const PP_SECRET    = import.meta.env.VITE_PAYPAL_SECRET;
-const PP_API_BASE   = import.meta.env.VITE_PAYPAL_ENDPOINT || 'https://sandbox.paypal.com';
+const PP_API_BASE = import.meta.env.VITE_PAYPAL_ENDPOINT || 'https://www.sandbox.paypal.com';
 const PP_BASE = import.meta.env.VITE_PAYPAL_API_ENDPOINT || 'https://api-m.sandbox.paypal.com';
-
+console.log('CLIENT_ID:', PP_CLIENT_ID);
+console.log('API_BASE:', PP_BASE);
+console.log('SDK_BASE:', PP_API_BASE);
 let _token       = null;
 let _tokenExpiry = 0;
 

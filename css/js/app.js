@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function inicializarCarrito() {
-    window.carrito = []; // Forzamos inicialización limpia en el navegador
+    window.carrito = [];
     
     const contenedorProductos = document.getElementById('contenedor-productos');
     if (contenedorProductos) {
@@ -57,12 +57,23 @@ function inicializarCarrito() {
 
             const boton = e.target;
             const card  = boton.closest('.product-item-card');
-            const nombreOriginal = boton.getAttribute('data-name') || 'Escultura';
+            
+            const nombreEs = card ? card.getAttribute('data-name-es') : '';
+            const nombreEn = card ? card.getAttribute('data-name-en') : '';
+            const nombreOriginal = nombreEs || boton.getAttribute('data-name') || 'Escultura';
+            
+            const imagenElemento = card ? card.querySelector('img') : null;
+            const rutaImagen = imagenElemento ? imagenElemento.getAttribute('src') : 'ruta-por-defecto.jpg';
+
+            const idUnico = rutaImagen.replace(/[^a-zA-Z0-9]/g, '');
 
             agregarAlCarrito({
-                id: card && card.getAttribute('data-name') ? card.getAttribute('data-name').replace(/\s+/g, '-') : 'producto',
+                id: idUnico,
                 nombre: nombreOriginal,
+                nombreEs: nombreEs,
+                nombreEn: nombreEn,
                 precio: card ? parseFloat(card.getAttribute('data-price')) || 0 : 0,
+                imagen: rutaImagen,
                 cantidad: 1
             });
         });
@@ -73,8 +84,8 @@ function inicializarCarrito() {
         miniLista.addEventListener('click', (e) => {
             const botonEliminar = e.target.closest('.btn-eliminar-item');
             if (botonEliminar) {
-                const nombreProducto = botonEliminar.getAttribute('data-producto');
-                window.carrito = window.carrito.filter(p => p.nombre !== nombreProducto);
+                const idProducto = botonEliminar.getAttribute('data-id');
+                window.carrito = window.carrito.filter(p => p.id !== idProducto);
                 carrito = window.carrito;
                 actualizarInterfaz();
             }
@@ -92,17 +103,19 @@ function inicializarCarrito() {
 }
 
 function agregarAlCarrito(productoNuevo) {
-    const existe = window.carrito.some(p => p.nombre === productoNuevo.nombre);
+    const existe = window.carrito.some(p => p.id === productoNuevo.id);
     if (existe) {
         window.carrito = window.carrito.map(p => {
-            if (p.nombre === productoNuevo.nombre) p.cantidad++;
+            if (p.id === productoNuevo.id) p.cantidad++;
             return p;
         });
     } else {
         window.carrito.push(productoNuevo);
     }
     carrito = window.carrito;
-    mostrarNotificacion(productoNuevo.nombre);
+    
+    const nombreNotif = idiomaActual === 'es' ? (productoNuevo.nombreEs || productoNuevo.nombre) : (productoNuevo.nombreEn || productoNuevo.nombre);
+    mostrarNotificacion(nombreNotif);
     actualizarInterfaz();
 }
 
@@ -117,29 +130,69 @@ export function actualizarInterfaz() {
     let totalProductos = 0;
     
     const miniLista = document.getElementById('lista-checkout-mini');
-    if (miniLista) miniLista.innerHTML = '';
+    
+    if (miniLista) {
+        miniLista.innerHTML = '';
+        
+        // 🚀 INYECCIÓN MAESTRA DE ESTILOS: Esto obliga a que la barra aparezca estilizada sí o sí
+        if (!document.getElementById('estilo-scroll-personalizado')) {
+            const estiloScroll = document.createElement('style');
+            estiloScroll.id = 'estilo-scroll-personalizado';
+            estiloScroll.innerHTML = `
+                /* 1. Forzar que aparezca el contenedor de scroll de forma elegante */
+                #lista-checkout-mini {
+                    overflow-y: auto !important;
+                    max-height: 480px !important; /* Ajusta este alto a los pixeles que necesites en tu pantalla */
+                    padding-right: 6px;
+                }
+                /* 2. El ancho de la barra */
+                #lista-checkout-mini::-webkit-scrollbar {
+                    width: 6px !important;
+                    display: block !important;
+                }
+                /* 3. La pista del fondo */
+                #lista-checkout-mini::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.03) !important;
+                    border-radius: 10px !important;
+                }
+                /* 4. El botón/barra que se mueve (Tono amarillo dorado de tu marca) */
+                #lista-checkout-mini::-webkit-scrollbar-thumb {
+                    background: rgba(255, 193, 7, 0.35) !important;
+                    border-radius: 10px !important;
+                    border: 1px solid rgba(255, 193, 7, 0.1) !important;
+                }
+                /* 5. Al pasar el mouse encima se ilumina más */
+                #lista-checkout-mini::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 193, 7, 0.6) !important;
+                }
+            `;
+            document.head.appendChild(estiloScroll);
+        }
+
+        // Clases de Bootstrap básicas para ordenar los elementos en fila vertical
+        miniLista.className = "d-flex flex-column gap-3 flex-grow-1";
+    }
 
     window.carrito.forEach(p => {
         totalPrecio    += p.precio * p.cantidad;
         totalProductos += p.cantidad;
 
-        let nombreTraducido = p.nombre;
-        if (idiomaActual === 'en') {
-            if (p.nombre === "Hidrocromo Mágico") nombreTraducido = "Magic Hydrochrome";
-            if (p.nombre === "Escultura Cascada") nombreTraducido = "Waterfall Sculpture";
-        }
+        let nombreTraducido = idiomaActual === 'es' ? (p.nombreEs || p.nombre) : (p.nombreEn || p.nombre);
 
         if (miniLista) {
             miniLista.insertAdjacentHTML('beforeend', `
-                <div class="d-flex justify-content-between align-items-center bg-black bg-opacity-25 p-2 rounded-3 mb-2 border border-secondary border-opacity-25">
-                    <div class="small">
-                        <span class="fw-bold text-light">${nombreTraducido}</span>
-                        <br><span class="text-secondary" style="font-size:0.8rem;">${idiomaActual === 'es' ? 'Cant' : 'Qty'}: ${p.cantidad}</span>
+                <div class="d-flex justify-content-between align-items-center bg-black bg-opacity-40 p-3 rounded-3 border border-secondary border-opacity-25 gap-3 shadow-sm flex-shrink-0">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1">
+                        <img src="${p.imagen}" alt="${nombreTraducido}" class="rounded-3 border border-secondary border-opacity-50 shadow-sm" style="width: 55px; height: 55px; object-fit: cover;" />
+                        <div class="small flex-grow-1">
+                            <span class="fw-bold text-light d-block text-truncate fs-6" style="max-width: 160px;">${nombreTraducido}</span>
+                            <span class="text-secondary d-block mt-1" style="font-size:0.85rem;">${idiomaActual === 'es' ? 'Cantidad' : 'Quantity'}: <strong class="text-white">${p.cantidad}</strong></span>
+                        </div>
                     </div>
                     <div class="d-flex align-items-center gap-3">
-                        <span class="small fw-semibold text-warning">$${(p.precio * p.cantidad).toFixed(2)}</span>
-                        <button class="btn btn-sm btn-outline-danger border-0 p-1 btn-eliminar-item" data-producto="${p.nombre}" style="background: transparent;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <span class="fw-semibold text-warning fs-6">$${(p.precio * p.cantidad).toFixed(2)}</span>
+                        <button class="btn btn-sm btn-outline-danger border-0 p-2 btn-eliminar-item rounded-circle" data-id="${p.id}" style="background: transparent;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                             </svg>
                         </button>
@@ -149,7 +202,7 @@ export function actualizarInterfaz() {
     });
 
     if (totalProductos === 0 && miniLista) {
-        miniLista.innerHTML = `<div class="text-center text-secondary py-3 small">${traducciones[idiomaActual].vacio}</div>`;
+        miniLista.innerHTML = `<div class="text-center text-secondary py-5 fs-6">${traducciones[idiomaActual].vacio}</div>`;
     }
 
     const contEl    = document.getElementById('cart-count');
@@ -165,7 +218,6 @@ export function actualizarInterfaz() {
         flotante.classList.toggle('d-none', totalProductos === 0);
     }
 
-    // Le notificamos a PayPal que actualice su render de botones con el nuevo precio total
     if (typeof window.ppRenderBoton === 'function' && document.getElementById('paypal-button-container')?.innerHTML !== "") {
         window.ppRenderBoton();
     }
@@ -273,6 +325,45 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLanguage();
 });
 
-// Exponer estados reactivos a la ventana global
 window.vaciarCarrito = vaciarCarrito;
 window.actualizarInterfaz = actualizarInterfaz;
+
+// 🚀 SCRIPT DE CONTROL PARA EL MENÚ DE NAVEGACIÓN
+document.addEventListener("DOMContentLoaded", () => {
+    const enlacesMenu = document.querySelectorAll('.navbar-nav .nav-link');
+
+    enlacesMenu.forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            
+            // Solo actuar si es un enlace de ancla interno
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault(); // Evitamos que salte bruscamente o falle
+                
+                const seccionTarget = document.querySelector(targetId);
+                
+                if (seccionTarget) {
+                    // 1. Cerrar el menú desplegable en móviles automáticamente al hacer clic
+                    const menuDesplegable = document.getElementById('menu');
+                    if (menuDesplegable && menuDesplegable.classList.contains('show')) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(menuDesplegable);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
+                        } else {
+                            menuDesplegable.classList.remove('show');
+                        }
+                    }
+
+                    // 2. Hacer el scroll suave perfecto calculando la altura del menú fixed
+                    const menuHeight = document.querySelector('.navbar').offsetHeight || 80;
+                    const targetPosition = seccionTarget.getBoundingClientRect().top + window.scrollY - menuHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+});

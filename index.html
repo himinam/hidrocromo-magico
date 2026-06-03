@@ -14,40 +14,57 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<!-- 🧭 BARRA DE NAVEGACIÓN SUPERIOR (Botones Vinculados y Reparados) -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#" data-key="titulo">
+        <a class="navbar-brand fw-bold tracking-wider" href="#hero" data-key="titulo" style="color: #00f2fe; text-shadow: 0 0 10px rgba(0,242,254,0.3);">
             HIDROCROMO MÁGICO
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto align-items-center">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-key="inicio">Inicio</a>
+                    <!-- 🎯 Enlace reparado apuntando al ID hero -->
+                    <a class="nav-link px-3" href="#hero" data-key="inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-key="esculturas">Esculturas</a>
+                    <!-- 🎯 Enlace reparado apuntando al ID productos -->
+                    <a class="nav-link px-3" href="#productos" data-key="esculturas">Esculturas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-key="galeria">Galería</a>
+                    <!-- 🎯 Enlace reparado apuntando al ID galeria -->
+                    <a class="nav-link px-3" href="#galeria" data-key="galeria">Galería</a>
                 </li>
 
-                <div class="idioma-contenedor d-flex align-items-center gap-1 p-1 m-2 ms-lg-3">
-                    <button id="btn-es" class="btn btn-idioma active">
-                        <i class="bi bi-translate me-1"></i> ES
-                    </button>
-                    <button id="btn-en" class="btn btn-idioma">
-                        <i class="bi bi-translate me-1"></i> EN
-                    </button>
-                </div>
-
                 <li class="nav-item">
-                    <a class="nav-link nav-instagram fs-5" href="https://www.instagram.com/hidrocromomagico?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-instagram"></i>
+                    <div class="idioma-contenedor d-flex align-items-center gap-1 p-1 ms-lg-3 rounded-5" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                        <button id="btn-es" class="btn btn-sm rounded-5 px-3 btn-idioma active" style="transition: all 0.3s ease;">
+                            <i class="bi bi-translate me-1"></i> ES
+                        </button>
+                        <button id="btn-en" class="btn btn-sm rounded-5 px-3 btn-idioma text-secondary" style="transition: all 0.3s ease;">
+                            EN
+                        </button>
+                    </div>
+                </li>
+
+                <li class="nav-item ms-lg-2">
+                    <button class="btn position-relative text-light p-2" data-bs-toggle="offcanvas" data-bs-target="#checkoutExpressPanel" style="background: transparent; border: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5.5 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5V4h-5zM4.5 4V3.5A1.5 1.5 0 0 1 6 2h4a1.5 1.5 0 0 1 1.5 1.5V4h1.5A1.5 1.5 0 0 1 14.5 5.5v8a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 1.5 13.5v-8A1.5 1.5 0 0 1 3 4zM3 5v8a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V5z"/>
+                        </svg>
+                        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 0.7rem; padding: 4px 7px;">
+                            0
+                        </span>
+                    </button>
+                </li>
+
+                <li class="nav-item ms-lg-2">
+                    <a class="nav-link text-light p-2" href="https://instagram.com" target="_blank">
+                        <i class="bi bi-instagram fs-5"></i>
                     </a>
                 </li>
             </ul>
@@ -55,27 +72,16 @@
     </div>
 </nav>
 
-<section class="hero">
+<!-- Cambia esto: <section class="hero"> -->
+<!-- Por esto otro (solo agrégale id="hero"): -->
+<section class="hero" id="hero">
     <div class="overlay"></div>
     <div class="container hero-content">
         <img src="css/img/banner.jpg" class="hero-logo" alt="Hidrocromo Mágico">
-
-<h1>
-ARTE QUE COBRA VIDA
-</h1>
-
-<p>
-Esculturas exclusivas con acabados personalizados y designs de alto impacto visual.
-</p>
-
-<a href="#productos" class="btn btn-gold">
-Explorar Colección
-</a>
-
-</div>
-
-
-
+        <h1>ARTE QUE COBRA VIDA</h1>
+        <p>Esculturas exclusivas con acabados personalizados y designs de alto impacto visual.</p>
+        <a href="#productos" class="btn btn-gold">Explorar Colección</a>
+    </div>
 </section>
 
 
@@ -666,15 +672,13 @@ Explorar Colección
     </div>
 </div>
 
-<section class="gallery py-5">
+<section class="container my-5 py-4" id="galeria">
 
     <div class="container">
 
         <div class="text-center mb-5">
 
-            <h2 class="fw-bold">
-                Galería de Obras
-            </h2>
+            <h2 class="text-white fw-bold mb-4 text-center tracking-wider" data-key="galeria">GALERÍA</h2>
 
             <p>
                 Descubre nuestra colección completa de exhibición.
@@ -703,6 +707,8 @@ Explorar Colección
     </div>
 
 </section>
+
+
 
 <div id="btn-flotante-compra" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 d-none" style="z-index: 1050; transition: all 0.3s ease;">
     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#checkoutExpressPanel"
@@ -817,3 +823,23 @@ Explorar Colección
 
 </body>
 </html>
+
+<div class="offcanvas-body d-flex flex-column justify-content-between h-100" style="overflow: hidden;">
+    
+    <div class="mb-3">
+        <h6 class="text-uppercase text-secondary tracking-wider small" data-key="seccionProductos">Resumen de Esculturas</h6>
+    </div>
+
+    <div id="lista-checkout-mini" class="flex-grow-1">
+        </div>
+
+    <div class="pt-3 border-top border-secondary border-opacity-25 mt-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-secondary" data-key="total">Total a pagar:</span>
+            <span id="checkout-total-express" class="fs-4 fw-bold text-warning">$0.00 USD</span>
+        </div>
+        
+        <div id="paypal-button-container" class="w-100"></div>
+    </div>
+</div>
+

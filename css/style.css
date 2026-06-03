@@ -452,3 +452,75 @@ section p{
 .boton-paypal-premium {
     animation: pulsoSuave 2s infinite;
 }
+
+/* 🎨 Diseño personalizado para la barra de scroll del carrito */
+#lista-checkout-mini::-webkit-scrollbar {
+    width: 6px; /* La hace delgada y elegante */
+}
+
+/* El fondo por donde corre la barra (pistas) */
+#lista-checkout-mini::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03); 
+    border-radius: 10px;
+}
+
+/* El indicador que sube y baja (el "agarre") */
+#lista-checkout-mini::-webkit-scrollbar-thumb {
+    background: rgba(255, 193, 7, 0.25); /* Tono dorado/warning semitransparente para hacer juego */
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+/* Cuando el usuario pasa el mouse sobre la barra, se ilumina un poco más */
+#lista-checkout-mini::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 193, 7, 0.5); /* Dorado más intenso al interactuar */
+}
+
+/* Estilos premium para el selector de idiomas en el menú */
+.btn-idioma {
+    border: none !important;
+    background: transparent !important;
+    color: #6c757d !important;
+    font-weight: 600;
+}
+
+.btn-idioma.active {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+    color: #000000 !important;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #00f2fe !important; /* Brillo cian en hover */
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* Customización premium para inputs en los filtros */
+.custom-check:checked {
+    background-color: #ffc107 !important;
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4) !important;
+}
+
+.custom-check {
+    background-color: #1a1a1a !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    cursor: pointer;
+}
+
+.small-label {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.small-label:hover {
+    color: #fff !important;
+}
