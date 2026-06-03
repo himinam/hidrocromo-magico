@@ -404,3 +404,51 @@ section p{
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(220, 39, 67, 0.6);
 }
+
+/* Contenedor estilo "Glassmorphism" */
+.idioma-contenedor {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Botones de idioma base */
+.btn-idioma {
+    border: none !important;
+    background: transparent !important;
+    color: #b0b0b0 !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Botón de idioma activo (Efecto Oro/Brillante Premium) */
+.btn-idioma.active {
+    background: linear-gradient(135deg, #ffc439, #ff9e00) !important;
+    color: #003087 !important;
+    box-shadow: 0 4px 10px rgba(255, 196, 57, 0.3) !important;
+    transform: scale(1.05);
+}
+
+/* Efecto hover sutil para el que no está activo */
+.btn-idioma:not(.active):hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 🌟 Animación de latido suave para el botón de PayPal simulado */
+@keyframes pulsoSuave {
+    0% { box-shadow: 0 0 0 0 rgba(255, 196, 57, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 196, 57, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 196, 57, 0); }
+}
+
+.boton-paypal-premium {
+    animation: pulsoSuave 2s infinite;
+}

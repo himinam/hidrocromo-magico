@@ -2,81 +2,63 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="tituloPagina">Hidrocromo Mágico</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Hidrocromo Mágico</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<link rel="stylesheet" href="css/style.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#" data-key="titulo">
+            HIDROCROMO MÁGICO
+        </a>
 
-<div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<a class="navbar-brand fw-bold" href="#">
-HIDROCROMO MÁGICO
-</a>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-key="inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-key="esculturas">Esculturas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-key="galeria">Galería</a>
+                </li>
 
-<button class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#menu">
+                <div class="idioma-contenedor d-flex align-items-center gap-1 p-1 m-2 ms-lg-3">
+                    <button id="btn-es" class="btn btn-idioma active">
+                        <i class="bi bi-translate me-1"></i> ES
+                    </button>
+                    <button id="btn-en" class="btn btn-idioma">
+                        <i class="bi bi-translate me-1"></i> EN
+                    </button>
+                </div>
 
-<span class="navbar-toggler-icon"></span>
-
-</button>
-
-<div class="collapse navbar-collapse" id="menu">
-
-<ul class="navbar-nav ms-auto align-items-center">
-
-<li class="nav-item">
-    <a class="nav-link" href="#">Inicio</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" href="#">Esculturas</a>
-</li>
- 
-<li class="nav-item">
-    <a class="nav-link" href="#">Galería</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link nav-instagram fs-5" href="https://www.instagram.com/hidrocromomagico?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
-        <i class="bi bi-instagram"></i>
-    </a>
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
+                <li class="nav-item">
+                    <a class="nav-link nav-instagram fs-5" href="https://www.instagram.com/hidrocromomagico?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
 <section class="hero">
-
-<div class="overlay"></div>
-
-<div class="container hero-content">
-
-<img
-src="css/img/banner.jpg"
-class="hero-logo"
-alt="Hidrocromo Mágico">
+    <div class="overlay"></div>
+    <div class="container hero-content">
+        <img src="css/img/banner.jpg" class="hero-logo" alt="Hidrocromo Mágico">
 
 <h1>
 ARTE QUE COBRA VIDA
@@ -92,17 +74,28 @@ Explorar Colección
 
 </div>
 
+
+
 </section>
 
 
 <div class="container my-5" id="productos">
+    <!-- SELECTOR DE IDIOMA -->
+    <div class="d-flex justify-content-end mb-3">
+        <select id="languageSelect" class="form-select bg-dark text-white border-secondary" style="width: auto;">
+            <option value="es" selected>Español (ES)</option>
+            <option value="en">English (EN)</option>
+        </select>
+    </div>
+
     <div class="row">
-        
+        <!-- BARRA LATERAL DE FILTROS -->
         <aside class="col-lg-3 mb-4">
             <div class="filter-sidebar p-4 rounded shadow-lg">
                 
+                <!-- PRECIO -->
                 <div class="filter-group mb-4">
-                    <h5 class="fw-bold text-white mb-3">PRECIO</h5>
+                    <h5 class="fw-bold text-white mb-3" data-translate="price-title">PRECIO</h5>
                     <div class="d-flex align-items-center gap-2">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text bg-dark border-secondary text-secondary">$</span>
@@ -118,54 +111,57 @@ Explorar Colección
 
                 <hr class="border-secondary opacity-25 my-4">
 
+                <!-- CATEGORÍAS -->
                 <div class="filter-group mb-4">
-                    <h5 class="fw-bold text-white mb-3">Categoría</h5>
+                    <h5 class="fw-bold text-white mb-3" data-translate="category-title">Categoría</h5>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="radio" name="catRadio" id="catAll" value="all" checked>
-                        <label class="form-check-label text-light" for="catAll">Todas las piezas</label>
+                        <label class="form-check-label text-light" for="catAll" data-translate="cat-all">Todas las piezas</label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="radio" name="catRadio" id="catAnimales" value="animales">
                         <label class="form-check-label text-light d-flex justify-content-between w-100 align-items-center" for="catAnimales">
-                            <span>Animales Reales</span>
+                            <span data-translate="cat-animals">Animales Reales</span>
                         </label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="radio" name="catRadio" id="catModernas" value="moderno">
                         <label class="form-check-label text-light d-flex justify-content-between w-100 align-items-center" for="catModernas">
-                            <span>Arte Moderno</span>
+                            <span data-translate="cat-modern">Arte Moderno</span>
                         </label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="radio" name="catRadio" id="catExclusivas" value="exclusivo">
                         <label class="form-check-label text-light d-flex justify-content-between w-100 align-items-center" for="catExclusivas">
-                            <span>Premium / Colección</span>
+                            <span data-translate="cat-premium">Premium / Colección</span>
                         </label>
                     </div>
                 </div>
 
                 <hr class="border-secondary opacity-25 my-4">
 
+                <!-- EFECTOS -->
                 <div class="filter-group mb-4">
-                    <h5 class="fw-bold text-white mb-3">Efecto Hidrocromo</h5>
+                    <h5 class="fw-bold text-white mb-3" data-translate="effect-title">Efecto Hidrocromo</h5>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="checkbox" value="cromado" id="typeCromado" checked>
-                        <label class="form-check-label text-light" for="typeCromado">Cromo Espejo Puro</label>
+                        <label class="form-check-label text-light" for="typeCromado" data-translate="eff-pure">Cromo Espejo Puro</label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="checkbox" value="dorado" id="typeDorado" checked>
-                        <label class="form-check-label text-light" for="typeDorado">Baño Dorado Metálico</label>
+                        <label class="form-check-label text-light" for="typeDorado" data-translate="eff-gold">Baño Dorado Metálico</label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input custom-check" type="checkbox" value="tornasol" id="typeTornasol" checked>
-                        <label class="form-check-label text-light" for="typeTornasol">Efecto Tornasol / Espectro</label>
+                        <label class="form-check-label text-light" for="typeTornasol" data-translate="eff-spectrum">Efecto Tornasol / Espectro</label>
                     </div>
                 </div>
 
                 <hr class="border-secondary opacity-25 my-4">
 
+                <!-- BUSCADOR -->
                 <div class="filter-group">
-                    <h5 class="fw-bold text-white mb-3">Buscar por Nombre</h5>
+                    <h5 class="fw-bold text-white mb-3" data-translate="search-title">Buscar por Nombre</h5>
                     <div class="input-group">
                         <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-search"></i></span>
                         <input type="text" id="searchProduct" class="form-control bg-dark border-secondary text-white" placeholder="Ej: León...">
@@ -175,461 +171,498 @@ Explorar Colección
             </div>
         </aside>
 
+        <!-- SECCIÓN DE PRODUCTOS -->
         <main class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center mb-4 px-2">
-                <h2 class="fw-bold m-0 fs-3">Esculturas Destacadas</h2>
+                <h2 class="fw-bold m-0 fs-3" data-translate="main-title">Esculturas Destacadas</h2>
                 <span class="text-secondary small" id="items-found-count">Mostrando 37 productos</span>
             </div>
 
             <div class="row g-4" id="contenedor-productos">
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name="leon cromado regal" data-category="animales" data-effect="cromado">
+                <!-- Producto 1 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name-es="leon cromado regal" data-name-en="regal chromed lion" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto1.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Pieza decorativa exclusiva.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="León Cromado Regal" data-price="850">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="León Cromado Regal" data-en="Regal Chromed Lion"></h4>
+                            <p data-es="Pieza decorativa exclusiva." data-en="Exclusive decorative piece."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="850" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name="caballo aureo galope" data-category="animales" data-effect="dorado">
+                <!-- Producto 2 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name-es="caballo aureo galope" data-name-en="golden galloping horse" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto2.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Acabado premium.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Caballo Áureo Galope" data-price="1200">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Caballo Áureo Galope" data-en="Golden Galloping Horse"></h4>
+                            <p data-es="Acabado premium." data-en="Premium finish."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1200" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="950" data-name="abstracto lira moderna" data-category="moderno" data-effect="cromado">
+                <!-- Producto 3 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="950" data-name-es="abstracto lira moderna" data-name-en="modern lyre abstract" data-category="moderno" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto3.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Diseño contemporáneo.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Abstracto Lira Moderna" data-price="950">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Abstracto Lira Moderna" data-en="Modern Lyre Abstract"></h4>
+                            <p data-es="Diseño contemporáneo." data-en="Contemporary design."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="950" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1100" data-name="nebulosa cromatica estslar" data-category="moderno" data-effect="tornasol">
+                <!-- Producto 4 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1100" data-name-es="nebulosa cromatica estslar" data-name-en="stellar chromatic nebula" data-category="moderno" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto4.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Efecto hidrocromo de alta gama.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Nebulosa Cromática Estslar" data-price="1100">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Nebulosa Cromática Estslar" data-en="Stellar Chromatic Nebula"></h4>
+                            <p data-es="Efecto hidrocromo de alta gama." data-en="High-end hydrochrome effect."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1100" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name="espectro metalico quontum" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 5 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name-es="espectro metalico quontum" data-name-en="quantum metallic spectrum" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto5.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Reflejos tornasolados únicos.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Espectro Metálico Quontum" data-price="1250">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Espectro Metálico Quontum" data-en="Quantum Metallic Spectrum"></h4>
+                            <p data-es="Reflejos tornasolados únicos." data-en="Unique iridescent reflections."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1250" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1600" data-name="vanguardia cromada prisma" data-category="exclusivo" data-effect="cromado">
+                <!-- Producto 6 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1600" data-name-es="vanguardia cromada prisma" data-name-en="prisma chromed vanguard" data-category="exclusivo" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto6.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Escultura de colección limitada.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Vanguardia Cromada Prisma" data-price="1600">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Vanguardia Cromada Prisma" data-en="Prisma Chromed Vanguard"></h4>
+                            <p data-es="Escultura de colección limitada." data-en="Limited collection sculpture."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1600" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name="gato espejo curioso" data-category="animales" data-effect="cromado">
+                <!-- Producto 7 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name-es="gato espejo curioso" data-name-en="curious mirror cat" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto7.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Simetría perfecta y brillo espejo.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Gato Espejo Curioso" data-price="850">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Gato Espejo Curioso" data-en="Curious Mirror Cat"></h4>
+                            <p data-es="Simetría perfecta y brillo espejo." data-en="Perfect symmetry and mirror shine."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="850" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name="pantara aurea" data-category="animales" data-effect="dorado">
+                <!-- Producto 8 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name-es="pantara aurea" data-name-en="golden panther" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto8.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Silueta salvaje bañada en oro.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Pantara Áurea" data-price="1200">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Pantara Áurea" data-en="Golden Panther"></h4>
+                            <p data-es="Silueta salvaje bañada en oro." data-en="Wild silhouette bathed in gold."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1200" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name="prisma infinito tornasel" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 9 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name-es="prisma infinito tornasel" data-name-en="infinite iridescent prism" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto9.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Descomposición geométrica del color.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Prisma Infinito Tornasel" data-price="1250">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Prisma Infinito Tornasel" data-en="Infinite Iridescent Prism"></h4>
+                            <p data-es="Descomposición geométrica del color." data-en="Geometric decomposition of color."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1250" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="900" data-name="fluidez abstracta cromada" data-category="moderno" data-effect="cromado">
+                <!-- Producto 10 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="900" data-name-es="fluidez abstracta cromada" data-name-en="chromed abstract fluidity" data-category="moderno" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto10.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Líneas curvas orgánicas.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Fluidez Abstracta Cromada" data-price="900">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Fluidez Abstracta Cromada" data-en="Chromed Abstract Fluidity"></h4>
+                            <p data-es="Líneas curvas orgánicas." data-en="Organic curved lines."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="900" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1800" data-name="delfin salto dorado" data-category="animales" data-effect="dorado">
+                <!-- Producto 11 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1800" data-name-es="delfin salto dorado" data-name-en="golden leaping dolphin" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto11.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Detalles minuciosos en diseño dinámico.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Delfín Salto Dorado" data-price="1800">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Delfín Salto Dorado" data-en="Golden Leaping Dolphin"></h4>
+                            <p data-es="Detalles minuciosos en diseño dinámico." data-en="Meticulous details in a dynamic design."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1800" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1050" data-name="aurera cosmica evferelde" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 12 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1050" data-name-es="aurera cosmica evferelde" data-name-en="cosmic aurora emerald" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto12.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Tonos cambiantes según la luz.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Aurera Cósmica Evferelde" data-price="1050">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Aurera Cósmica Evferelde" data-en="Cosmic Aurora Emerald"></h4>
+                            <p data-es="Tonos cambiantes según la luz." data-en="Changing tones depending on the light."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1050" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="800" data-name="formas organicas cromadas" data-category="moderno" data-effect="cromado">
+                <!-- Producto 13 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="800" data-name-es="formas organicas cromadas" data-name-en="chromed organic shapes" data-category="moderno" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto13.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Inspiración clásica con acabado futurista.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Formas Orgánicas Cromadas" data-price="800">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Formas Orgánicas Cromadas" data-en="Chromed Organic Shapes"></h4>
+                            <p data-es="Inspiración clásica con acabado futurista." data-en="Classical inspiration with a futuristic finish."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="800" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1300" data-name="tigre dorado mejestuoso" data-category="animales" data-effect="dorado">
+                <!-- Producto 14 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1300" data-name-es="tigre dorado mejestuoso" data-name-en="majestic golden tiger" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto14.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Elegancia nocturna en baño de oro.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Tigre Dorado Mejestuoso" data-price="1300">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Tigre Dorado Mejestuoso" data-en="Majestic Golden Tiger"></h4>
+                            <p data-es="Elegancia nocturna en baño de oro." data-en="Nocturnal elegance in gold plating."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1300" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1500" data-name="espectro galactico tornasol" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 15 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1500" data-name-es="espectro galactico tornasol" data-name-en="iridescent galactic spectrum" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto15.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Efecto holográfico profundo.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Espectro Galáctico Tornasol" data-price="1500">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Espectro Galáctico Tornasol" data-en="Iridescent Galactic Spectrum"></h4>
+                            <p data-es="Efecto holográfico profundo." data-en="Deep holographic effect."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1500" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="980" data-name="estructura geometrica cromada" data-category="moderno" data-effect="cromado">
+                <!-- Producto 16 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="980" data-name-es="estructura geometrica cromada" data-name-en="chromed geometric structure" data-category="moderno" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto16.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Arte abstracto que absorbe el entorno.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Estructura Geométrica Cromada" data-price="980">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Estructura Geométrica Cromada" data-en="Chromed Geometric Structure"></h4>
+                            <p data-es="Arte abstracto que absorbe el entorno." data-en="Abstract art that absorbs the environment."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="980" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1150" data-name="halcon dorado cazo" data-category="animales" data-effect="dorado">
+                <!-- Producto 17 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1150" data-name-es="halcon dorado cazo" data-name-en="hunting golden falcon" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto17.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Fuerza y precisión en acabado brillante.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Halcón Dorado Cazo" data-price="1150">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Halcón Dorado Cazo" data-en="Hunting Golden Falcon"></h4>
+                            <p data-es="Fuerza y precisión en acabado brillante." data-en="Strength and precision in a shiny finish."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1150" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1700" data-name="infinito tornasol doble" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 18 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1700" data-name-es="infinito tornasol doble" data-name-en="double iridescent infinity" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto18.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Lazo continuo con espectro dinámico.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Infinito Tornasol Doble" data-price="1700">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Infinito Tornasol Doble" data-en="Double Iridescent Infinity"></h4>
+                            <p data-es="Lazo continuo con espectro dinámico." data-en="Continuous loop with a dynamic spectrum."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1700" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1950" data-name="monarca aureo trono" data-category="exclusivo" data-effect="dorado">
+                <!-- Producto 19 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1950" data-name-es="monarca aureo trono" data-name-en="golden monarch throne" data-category="exclusivo" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto19.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>La corona de nuestra colección hidrocromo.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Monarca Áureo Trono" data-price="1950">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Monarca Áureo Trono" data-en="Golden Monarch Throne"></h4>
+                            <p data-es="La corona de nuestra colección hidrocromo." data-en="The crown of our hydrochrome collection."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1950" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name="buho sabiduria espejo" data-category="animales" data-effect="cromado">
+                <!-- Producto 20 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="850" data-name-es="buho sabiduria espejo" data-name-en="wisdom mirror owl" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto20.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Mirada penetrante en cromo puro.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Búho Sabiduría Espejo" data-price="850">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Búho Sabiduría Espejo" data-en="Wisdom Mirror Owl"></h4>
+                            <p data-es="Mirada penetrante en cromo puro." data-en="Piercing gaze in pure chrome."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="850" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1400" data-name="oso prismatico guardian" data-category="animales" data-effect="tornasol">
+                <!-- Producto 21 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1400" data-name-es="oso prismatico guardian" data-name-en="guardian prismatic bear" data-category="animales" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto21.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Estructura robusta multicolor.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Oso Prismático Guardián" data-price="1400">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Oso Prismático Guardián" data-en="Guardian Prismatic Bear"></h4>
+                            <p data-es="Estructura robusta multicolor." data-en="Robust multicolored structure."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1400" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1650" data-name="elefante imperial dorado" data-category="animales" data-effect="dorado">
+                <!-- Producto 22 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1650" data-name-es="elefante imperial dorado" data-name-en="golden imperial elephant" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto22.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Símbolo de fortuna y elegancia.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Elefante Imperial Dorado" data-price="1650">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Elefante Imperial Dorado" data-en="Golden Imperial Elephant"></h4>
+                            <p data-es="Símbolo de fortuna y elegancia." data-en="Symbol of fortune and elegance."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1650" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="780" data-name="rinoceronte cromo fuerte" data-category="animales" data-effect="cromado">
+                <!-- Producto 23 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="780" data-name-es="rinoceronte cromo fuerte" data-name-en="strong chrome rhino" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto23.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Potencia visual impactante.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Rinoceronte Cromo Fuerte" data-price="780">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Rinoceronte Cromo Fuerte" data-en="Strong Chrome Rhino"></h4>
+                            <p data-es="Potencia visual impactante." data-en="Striking visual power."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="780" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1100" data-name="aguila vuelo aureo" data-category="animales" data-effect="dorado">
+                <!-- Producto 24 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1100" data-name-es="aguila vuelo aureo" data-name-en="golden flight eagle" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto24.jpg" class="img-fluid">
                         <div class="product-info">
-                           
-                            <p>Detalles finos en cada ala.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Águila Vuelo Áureo" data-price="1100">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Águila Vuelo Áureo" data-en="Golden Flight Eagle"></h4>
+                            <p data-es="Detalles finos en cada ala." data-en="Fine details on each wing."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1100" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1350" data-name="gorila fuerza esmeralda" data-category="animales" data-effect="tornasol">
+                <!-- Producto 25 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1350" data-name-es="gorila fuerza esmeralda" data-name-en="emerald strength gorilla" data-category="animales" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto25.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Reflejos verdes y morados.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Gorila Fuerza Esmeralda" data-price="1350">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Gorila Fuerza Esmeralda" data-en="Emerald Strength Gorilla"></h4>
+                            <p data-es="Reflejos verdes y morados." data-en="Green and purple reflections."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1350" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="920" data-name="cisne elegancia cromo" data-category="animales" data-effect="cromado">
+                <!-- Producto 26 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="920" data-name-es="cisne elegancia cromo" data-name-en="chrome elegance swan" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto26.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Curvas suaves y brillo líquido.</p>
-                           <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Cisne Elegancia Cromo" data-price="920">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Cisne Elegancia Cromo" data-en="Chrome Elegance Swan"></h4>
+                            <p data-es="Curvas suaves y brillo líquido." data-en="Smooth curves and liquid shine."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="920" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name="escorpion veneno dorado" data-category="exclusivo" data-effect="dorado">
+                <!-- Producto 27 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1200" data-name-es="escorpion veneno dorado" data-name-en="golden venom scorpion" data-category="exclusivo" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto27.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Pieza de diseño agresivo y lujoso.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Escorpión Veneno Dorado" data-price="1200">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Escorpiòn Veneno Dorado" data-en="Golden Venom Scorpion"></h4>
+                            <p data-es="Pieza de diseño agresivo y lujoso." data-en="Aggressive and luxurious design piece."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1200" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="890" data-name="lobo aullido lunar" data-category="animales" data-effect="cromado">
+                <!-- Producto 28 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="890" data-name-es="lobo aullido lunar" data-name-en="lunar howl wolf" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto28.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Espíritu salvaje en espejo plata.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Lobo Aullido Lunar" data-price="890">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Lobo Aullido Lunar" data-en="Lunar Howl Wolf"></h4>
+                            <p data-es="Espíritu salvaje en espejo plata." data-en="Wild spirit in silver mirror."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="890" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1750" data-name="dragon fuego tornasol" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 29 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1750" data-name-es="dragon fuego tornasol" data-name-en="iridescent fire dragon" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto29.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Efecto holográfico mitológico.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Dragón Fuego Tornasol" data-price="1750">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Dragón Fuego Tornasol" data-en="Iridescent Fire Dragon"></h4>
+                            <p data-es="Efecto holográfico mitológico." data-en="Mythological holographic effect."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1750" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="960" data-name="medusa reflejos magicos" data-category="moderno" data-effect="cromado">
+                <!-- Producto 30 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="960" data-name-es="medusa reflejos magicos" data-name-en="magical reflections medusa" data-category="moderno" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto30.jpg" class="img-fluid">
                         <div class="product-info">
-                           
-                            <p>Tentáculos de cromo fluido.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Medusa Reflejos Mágicos" data-price="960">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Medusa Reflejos Mágicos" data-en="Magical Reflections Medusa"></h4>
+                            <p data-es="Tentáculos de cromo fluido." data-en="Fluid chrome tentacles."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="960" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1050" data-name="colibri destello estelar" data-category="animales" data-effect="tornasol">
+                <!-- Producto 31 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1050" data-name-es="colibri destello estelar" data-name-en="stellar flash hummingbird" data-category="animales" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto31.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Pequeña joya cromática.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Colibrí Destello Estelar" data-price="1050">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Colibrí Destello Estelar" data-en="Stellar Flash Hummingbird"></h4>
+                            <p data-es="Pequeña joya cromática." data-en="Small chromatic gem."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1050" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1150" data-name="tortuga paso milenario" data-category="animales" data-effect="dorado">
+                <!-- Producto 32 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1150" data-name-es="tortuga paso milenario" data-name-en="millenary step turtle" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto32.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Caparazón bañado en oro 24k.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Tortuga Paso Milenario" data-price="1150">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Tortuga Paso Milenario" data-en="Millenary Step Turtle"></h4>
+                            <p data-es="Caparazón bañado en oro 24k." data-en="24k gold-plated shell."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1150" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1300" data-name="tiburon profundo espejo" data-category="animales" data-effect="cromado">
+                <!-- Producto 33 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1300" data-name-es="tiburon profundo espejo" data-name-en="deep mirror shark" data-category="animales" data-effect="cromado">
                     <div class="product-card">
                         <img src="css/img/producto33.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Dinámica marina en alto brillo.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Tiburón Profundo Espejo" data-price="1300">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Tiburón Profundo Espejo" data-en="Deep Mirror Shark"></h4>
+                            <p data-es="Dinámica marina en alto brillo." data-en="Marine dynamics in high gloss."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1300" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1450" data-name="venado majestad dorada" data-category="animales" data-effect="dorado">
+                <!-- Producto 34 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1450" data-name-es="venado majestad dorada" data-name-en="golden majesty deer" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto34.jpg" class="img-fluid">
                         <div class="product-info">
-                           
-                            <p>Cornamenta áurea espectacular.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Venado Majestad Dorada" data-price="1450">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Venado Majestad Dorada" data-en="Golden Majesty Deer"></h4>
+                            <p data-es="Cornamenta áurea espectacular." data-en="Spectacular golden antlers."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1450" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1850" data-name="fenix resurgir tornasol" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 35 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1850" data-name-es="fenix resurgir tornasol" data-name-en="iridescent rising phoenix" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto35.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Colores de fuego y espectro.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Fénix Resurgir Tornasol" data-price="1850">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Fénix Resurgir Tornasol" data-en="Iridescent Rising Phoenix"></h4>
+                            <p data-es="Colores de fuego y espectro." data-en="Colors of fire and spectrum."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1850" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name="jirafa altura aurea" data-category="animales" data-effect="dorado">
+                <!-- Producto 36 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="1250" data-name-es="jirafa altura aurea" data-name-en="golden height giraffe" data-category="animales" data-effect="dorado">
                     <div class="product-card">
                         <img src="css/img/producto36.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Elegancia vertical de oro.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Jirafa Altura Áurea" data-price="1250">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Jirafa Altura Áurea" data-en="Golden Height Giraffe"></h4>
+                            <p data-es="Elegancia vertical de oro." data-en="Vertical elegance of gold."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="1250" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4 product-item-card" data-price="2000" data-name="unicornio sueno cromatico" data-category="exclusivo" data-effect="tornasol">
+                <!-- Producto 37 -->
+                <div class="col-md-6 col-xl-4 product-item-card" data-price="2000" data-name-es="unicornio sueno cromatico" data-name-en="chromatic dream unicorn" data-category="exclusivo" data-effect="tornasol">
                     <div class="product-card">
                         <img src="css/img/producto37.jpg" class="img-fluid">
                         <div class="product-info">
-                            
-                            <p>Fantasía pura en efecto prisma.</p>
-                            <h5>$0 USD</h5>
-                            <button class="btn btn-dark w-100 add-cart" data-name="Unicornio Sueño Cromático" data-price="2000">Agregar al carrito</button>
+                            <h4 class="product-title fs-5" data-es="Unicornio Sueño Cromático" data-en="Chromatic Dream Unicorn"></h4>
+                            <p data-es="Fantasía pura en efecto prisma." data-en="Pure fantasy in prisma effect."></p>
+                            <h5></h5>
+                            <button class="btn btn-dark w-100 add-cart" data-price="2000" data-translate="add-btn">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
 
             </div>
         </main>
-        
     </div>
 </div>
 
