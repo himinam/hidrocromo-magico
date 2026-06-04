@@ -40,6 +40,13 @@ const traducciones = {
     }
 };
 
+// 🇨🇴 Formateador nativo para Pesos Colombianos (Ejemplo: 1350000 -> $ 1.350.000)
+const formatearCOP = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     inicializarCarrito();
     document.getElementById('btn-es')?.addEventListener('click', () => cambiarIdioma('es'));
@@ -134,42 +141,34 @@ export function actualizarInterfaz() {
     if (miniLista) {
         miniLista.innerHTML = '';
         
-        // 🚀 INYECCIÓN MAESTRA DE ESTILOS: Esto obliga a que la barra aparezca estilizada sí o sí
         if (!document.getElementById('estilo-scroll-personalizado')) {
             const estiloScroll = document.createElement('style');
             estiloScroll.id = 'estilo-scroll-personalizado';
             estiloScroll.innerHTML = `
-                /* 1. Forzar que aparezca el contenedor de scroll de forma elegante */
                 #lista-checkout-mini {
                     overflow-y: auto !important;
-                    max-height: 480px !important; /* Ajusta este alto a los pixeles que necesites en tu pantalla */
+                    max-height: 480px !important;
                     padding-right: 6px;
                 }
-                /* 2. El ancho de la barra */
                 #lista-checkout-mini::-webkit-scrollbar {
                     width: 6px !important;
                     display: block !important;
                 }
-                /* 3. La pista del fondo */
                 #lista-checkout-mini::-webkit-scrollbar-track {
                     background: rgba(255, 255, 255, 0.03) !important;
                     border-radius: 10px !important;
                 }
-                /* 4. El botón/barra que se mueve (Tono amarillo dorado de tu marca) */
                 #lista-checkout-mini::-webkit-scrollbar-thumb {
                     background: rgba(255, 193, 7, 0.35) !important;
                     border-radius: 10px !important;
                     border: 1px solid rgba(255, 193, 7, 0.1) !important;
                 }
-                /* 5. Al pasar el mouse encima se ilumina más */
                 #lista-checkout-mini::-webkit-scrollbar-thumb:hover {
                     background: rgba(255, 193, 7, 0.6) !important;
                 }
             `;
             document.head.appendChild(estiloScroll);
         }
-
-        // Clases de Bootstrap básicas para ordenar los elementos en fila vertical
         miniLista.className = "d-flex flex-column gap-3 flex-grow-1";
     }
 
@@ -190,7 +189,7 @@ export function actualizarInterfaz() {
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-3">
-                        <span class="fw-semibold text-warning fs-6">$${(p.precio * p.cantidad).toFixed(2)}</span>
+                        <span class="fw-semibold text-warning fs-6">${formatearCOP.format(p.precio * p.cantidad)}</span>
                         <button class="btn btn-sm btn-outline-danger border-0 p-2 btn-eliminar-item rounded-circle" data-id="${p.id}" style="background: transparent;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
@@ -211,10 +210,12 @@ export function actualizarInterfaz() {
     const totalFlot = document.getElementById('total-flotante');
 
     if (contEl)   contEl.textContent   = totalProductos;
-    if (totalEl)  totalEl.textContent  = `$${totalPrecio.toFixed(2)} USD`;
+    
+    // 🇨🇴 Cambio en los textos de totales flotantes y del checkout express
+    if (totalEl)  totalEl.textContent  = formatearCOP.format(totalPrecio);
 
     if (flotante && totalFlot) {
-        totalFlot.textContent = `$${totalPrecio.toFixed(2)} USD`;
+        totalFlot.textContent = formatearCOP.format(totalPrecio);
         flotante.classList.toggle('d-none', totalProductos === 0);
     }
 
@@ -244,7 +245,7 @@ export function cambiarIdioma(idioma) {
     actualizarInterfaz(); 
 }
 
-// Inicialización de filtros de productos (permanece intacto)
+// Inicialización de filtros de productos (Manejo de lenguaje y renderizado de tarjetas)
 document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         es: { "price-title": "PRECIO", "category-title": "Categoría", "cat-all": "Todas las piezas", "cat-animals": "Animales Reales", "cat-modern": "Arte Moderno", "cat-premium": "Premium / Colección", "effect-title": "Efecto Hidrocromo", "eff-pure": "Cromo Espejo Puro", "eff-gold": "Baño Dorado Metálico", "eff-spectrum": "Efecto Tornasol / Espectro", "search-title": "Buscar por Nombre", "main-title": "Esculturas Destacadas", "add-btn": "Agregar al carrito", "placeholder": "Ej: León...", "showing": "Mostrando", "products": "productos", "product": "producto" },
@@ -275,7 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const price = card.getAttribute('data-price') || "0"; 
             if (titleElem) titleElem.textContent = titleElem.getAttribute(`data-${lang}`);
             if (descElem) descElem.textContent = descElem.getAttribute(`data-${lang}`);
-            if (priceElem) priceElem.textContent = `$${parseFloat(price).toFixed(2)} USD`; 
+            
+            // 🇨🇴 Cambio crítico: Aquí se inyecta el precio en pesos colombianos en la tarjeta de la tienda
+            if (priceElem) priceElem.textContent = formatearCOP.format(parseFloat(price)); 
         });
         filterProducts();
     }
@@ -328,22 +331,16 @@ document.addEventListener('DOMContentLoaded', () => {
 window.vaciarCarrito = vaciarCarrito;
 window.actualizarInterfaz = actualizarInterfaz;
 
-// 🚀 SCRIPT DE CONTROL PARA EL MENÚ DE NAVEGACIÓN
 document.addEventListener("DOMContentLoaded", () => {
     const enlacesMenu = document.querySelectorAll('.navbar-nav .nav-link');
 
     enlacesMenu.forEach(enlace => {
         enlace.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            
-            // Solo actuar si es un enlace de ancla interno
             if (targetId && targetId.startsWith('#')) {
-                e.preventDefault(); // Evitamos que salte bruscamente o falle
-                
+                e.preventDefault();
                 const seccionTarget = document.querySelector(targetId);
-                
                 if (seccionTarget) {
-                    // 1. Cerrar el menú desplegable en móviles automáticamente al hacer clic
                     const menuDesplegable = document.getElementById('menu');
                     if (menuDesplegable && menuDesplegable.classList.contains('show')) {
                         const bsCollapse = bootstrap.Collapse.getInstance(menuDesplegable);
@@ -353,8 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             menuDesplegable.classList.remove('show');
                         }
                     }
-
-                    // 2. Hacer el scroll suave perfecto calculando la altura del menú fixed
                     const menuHeight = document.querySelector('.navbar').offsetHeight || 80;
                     const targetPosition = seccionTarget.getBoundingClientRect().top + window.scrollY - menuHeight;
 

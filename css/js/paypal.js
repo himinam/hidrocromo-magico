@@ -1,6 +1,6 @@
 import { carrito, vaciarCarrito, actualizarInterfaz } from './app.js';
 
-// 🔐 Solo necesitas tu Client ID público.
+
 const PP_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID;
 
 function cargarPaypalSDK() {
@@ -65,7 +65,7 @@ async function ppRenderBoton() {
         return;
     }
 
-    // 🚀 Render del botón inteligente (este ya incluye opción QR automáticamente en PC)
+
     paypal.Buttons({
         createOrder: (data, actions) => {
             return actions.order.create({
