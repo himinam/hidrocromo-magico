@@ -762,23 +762,20 @@
         <!-- Opciones de pago -->
         <div id="pp-payment-options" class="mt-auto">
 
-            <!-- Total -->
-            <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mb-4">
-                <span class="text-secondary fw-semibold">Total a pagar:</span>
-                <span id="checkout-total-express" class="fs-4 fw-bold text-warning">$0.00 USD</span>
-            </div>
+    <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mb-4">
+        <span class="text-secondary fw-semibold">Total a pagar:</span>
+        <span id="checkout-total-express" class="fs-4 fw-bold text-warning">$0.00 USD</span>
+    </div>
 
-            <!-- Tabs de método -->
-            <div class="d-flex gap-2 mb-4">
-                <button id="pp-tab-normal" class="btn w-50 fw-bold py-2"
-                        style="background:linear-gradient(135deg,#0070ba,#003087);color:white;border:none;border-radius:12px;">
-                    <i class="bi bi-paypal me-1"></i> PayPal
-                </button>
-                <button id="pp-tab-qr" class="btn w-50 fw-bold py-2 btn-outline-secondary"
-                        style="border-radius:12px;">
-                    <i class="bi bi-qr-code me-1"></i> Pagar con QR
-                </button>
-            </div>
+    <div id="pp-panel-normal">
+        <p class="text-secondary small text-center mb-3">
+            <i class="bi bi-shield-check text-success me-1"></i> Pago seguro procesado por PayPal
+        </p>
+        
+        <div id="paypal-button-container"></div>
+    </div>
+
+</div>
 
             <!-- Panel PayPal normal -->
             <div id="pp-panel-normal">
