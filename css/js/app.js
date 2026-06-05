@@ -362,3 +362,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Detecta las imágenes dentro de las tarjetas de productos
+    const imagenesProducto = document.querySelectorAll(".product-card img");
+    const miModalImagen = new bootstrap.Modal(document.getElementById("imageModal"));
+    const imagenEnModal = document.getElementById("modalPreviewImage");
+
+    imagenesProducto.forEach(img => {
+        // Le pone el cursor de la mano/lupa para avisar que es clickeable
+        img.style.cursor = "pointer";
+
+        img.addEventListener("click", function () {
+            // Pasa la imagen pequeña al tamaño grande del modal
+            imagenEnModal.src = this.src;
+            miModalImagen.show();
+        });
+    });
+});

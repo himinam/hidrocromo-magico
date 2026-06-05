@@ -574,3 +574,11 @@ section p{
         border-radius: 15px;
     }
 }
+
+/* Esto controlará el tamaño de las imágenes dentro de las tarjetas de producto */
+.product-card img {
+    height: 260px !important; /* Altura fija perfecta para PC y celular */
+    width: 100% !important;
+    object-fit: contain !important; /* Ajuste limpio que no deforma la escultura */
+    object-position: center !important; /* Mantiene el centro de la figura a la vista */
+}
